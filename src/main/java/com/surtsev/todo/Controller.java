@@ -1,6 +1,7 @@
 package com.surtsev.todo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
@@ -11,7 +12,11 @@ public class Controller {
 
     public String complete = "[X]";
     public String incomplete = "[ ]";
-    private Data data = new Data();
+    private Data data = new Data(
+        "jdbc:postgresql://localhost:5432/",
+        "todo_db",
+        "postgres"
+    );
 
     public static String doList() {
         ArrayList<Tasks> tasks = data.getTasks();

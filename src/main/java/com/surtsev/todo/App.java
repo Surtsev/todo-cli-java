@@ -14,13 +14,30 @@ public class App {
             System.out.println("Too many arguments provided.");
             return;
         }
+        String command = args[0];
         if (args.length == 1) {
-            if (args[0].equals("list")) {
+            if (command.equals("list")) {
                 Controller controller = new Controller();
                 controller.list();
+                return;
             }
-            return;
+            if (command.equals("delete_all")) {
+                Controller controller = new Controller();
+                controller.deleteAll();
+                return;
+            }
         }
-        System.out.println("Hello World!");
+        if (args.length == 2) {
+            if (command.equals("add")) {
+                Controller controller = new Controller();
+                controller.add(args[0], args[1]);
+                return;
+            }
+            if (command.equals("delete")) {
+                Controller controller = new Controller();
+                controller.delete(args[0], args[1]);
+                return;
+            }
+        }
     }
 }
