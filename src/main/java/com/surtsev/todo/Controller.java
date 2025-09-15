@@ -1,36 +1,46 @@
 package com.surtsev.todo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Controller {
 
-    public enum Status {
-        TODO,
-        DONE,
-    }
-
-    public String complete = "[X]";
-    public String incomplete = "[ ]";
     private Data data = new Data(
         "jdbc:postgresql://localhost:5432/",
         "todo_db",
-        "postgres"
+        "todo_user",
+        "mypassword"
     );
 
-    public static String doList() {
-        ArrayList<Tasks> tasks = data.getTasks();
-        for (Tasks task : tasks) {
-            if (task.getStatus() == Status.DONE) {
-                System.out.println(complete + " " + task.getDescription());
-            } else {
-                System.out.println(incomplete + " " + task.getDescription());
-            }
+    public void list() {
+        data.getTasks();
+    }
+
+    public void add(String name, String description) {
+        try {
+            data.addTask(new Task(name, description, Status.TODO));
+            System.out.println("Task added");
+        } catch (Exception e) {
+            System.out.println("Error adding task: " + e.getMessage());
         }
     }
 
-    public static String doAdd(String description) {
-        data.addTask(new Tasks(description, Status.TODO));
-        return "Task added";
+    public void delete(String name) {
+        try {
+            data.deleteTask(name);
+            System.out.println("Task deleted");
+        } catch (Exception e) {
+            System.out.println("Error deleting task: " + e.getMessage());
+        }
+    }
+
+    public void update(String name) {
+        try {
+            data.updateTask(name);
+            System.out.println("Task updated");
+        } catch (Exception e) {
+            System.out.println("Error updating task: " + e.getMessage());
+        }
+    }
+
+    public void deleteAll() {
+        data.deleteAllTasks();
     }
 }

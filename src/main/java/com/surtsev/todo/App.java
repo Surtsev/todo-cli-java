@@ -1,8 +1,5 @@
 package com.surtsev.todo;
 
-/**
- * Hello world!
- */
 public class App {
 
     public static void main(String[] args) {
@@ -27,15 +24,38 @@ public class App {
                 return;
             }
         }
-        if (args.length == 2) {
+        if (args.length == 3) {
             if (command.equals("add")) {
                 Controller controller = new Controller();
-                controller.add(args[0], args[1]);
+                try {
+                    controller.add(args[1], args[2]);
+                } catch (Exception e) {
+                    System.out.println("Error adding task: " + e.getMessage());
+                }
                 return;
             }
+        }
+        if (args.length == 2) {
             if (command.equals("delete")) {
                 Controller controller = new Controller();
-                controller.delete(args[0], args[1]);
+                try {
+                    controller.delete(args[1]);
+                } catch (Exception e) {
+                    System.out.println(
+                        "Error deleting task: " + e.getMessage()
+                    );
+                }
+                return;
+            }
+            if (command.equals("update")) {
+                Controller controller = new Controller();
+                try {
+                    controller.update(args[1]);
+                } catch (Exception e) {
+                    System.out.println(
+                        "Error updating task: " + e.getMessage()
+                    );
+                }
                 return;
             }
         }
